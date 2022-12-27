@@ -11,7 +11,7 @@
 <br />
 
 <p>
-  <img width="600" src="https://diversifica.dev/wp-content/uploads/2022/12/Screen-Shot-2022-12-19-at-13.23.15-1024x561.png">
+  <img width="600" src="https://raw.githubusercontent.com/ThBastos/space-invaders/master/img/playing.gif">
 </p>
 
 
