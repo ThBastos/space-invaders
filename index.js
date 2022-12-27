@@ -2,6 +2,22 @@ const canvas = document.querySelector('canvas')
 const scoreEl = document.querySelector('#scoreEl')
 const c = canvas.getContext('2d')
 
+Howler.volume(0.5)
+const audio = {
+  shoot: new Howl({
+    src: './audio/shoot.wav'
+  }),
+  explode: new Howl({
+    src: './audio/explode.wav'
+  }),
+  gameOver: new Howl({
+    src: './audio/gameOver.mp3'
+  }),
+  enemyShoot: new Howl({
+    src: './audio/enemyShoot.wav'
+  }),
+}
+
 canvas.width = innerWidth > 1024 ? 1024 : innerWidth
 canvas.height = innerWidth > 1024 ? 576 : innerHeight
 
@@ -174,6 +190,7 @@ class Invader {
   }
   shoot(invaderProjectiles) {
     if(this.position){
+      audio.enemyShoot.play()
       invaderProjectiles.push(
         new InvaderProjectile({
           position: {
@@ -331,6 +348,9 @@ function animate() {
       invaderProjectile.position.x <= player.position.x +
       player.width
       ) {
+
+        audio.gameOver.play()
+
         setTimeout(() => {
           invaderProjectiles.splice(index, 1)
           player.opacity = 0
@@ -388,8 +408,12 @@ function animate() {
             )
             // remove invader and projectile
             if(invaderFound && projectileFound){
+
               score += 100
               scoreEl.innerHTML = score
+
+              audio.explode.play()
+
               createParticles({
                 object: invader,
                 fades: true
@@ -448,6 +472,7 @@ addEventListener('keydown', ({key}) => {
       keys.d.pressed = true
       break
     case ' ':
+      audio.shoot.play()
       projectiles.push(
         new Projectile({
           position: {
