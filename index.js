@@ -4,6 +4,10 @@ const c = canvas.getContext('2d')
 
 Howler.volume(0.5)
 const audio = {
+  backgroundMusic: new Howl({
+    src: './audio/backgroundMusic.wav',
+    loop: true
+  }),
   shoot: new Howl({
     src: './audio/shoot.wav'
   }),
@@ -463,6 +467,7 @@ function animate() {
 animate()
 
 addEventListener('keydown', ({key}) => {
+  audio.backgroundMusic.play()
   if(game.over) return
   switch (key){
     case 'ArrowLeft':
